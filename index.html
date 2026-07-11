@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>止水 · 个人知识空间</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3F9F8;
+    --bg-soft: #E9F3F1;
+    --surface: #FFFFFF;
+    --surface-alt: #EFF6F5;
+    --primary: #5FA39A;
+    --primary-dark: #3E7A72;
+    --primary-pale: #CDE6E1;
+    --accent: #9FC7D3;
+    --text: #27383B;
+    --text-muted: #6C8487;
+    --text-faint: #97ACAE;
+    --border: #DCEAE8;
+    --shadow: 0 8px 30px rgba(63, 106, 100, 0.08);
+    --shadow-soft: 0 2px 12px rgba(63, 106, 100, 0.06);
+    --radius: 18px;
+    --serif: 'Noto Serif SC', serif;
+    --sans: 'Noto Sans SC', sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style:none; }
+  button, input, textarea{ font-family: inherit; }
+
+  ::selection{ background: var(--primary-pale); color: var(--primary-dark); }
+
+  /* ---------- Scrollbar ---------- */
+  ::-webkit-scrollbar{ width: 10px; }
+  ::-webkit-scrollbar-track{ background: var(--bg); }
+  ::-webkit-scrollbar-thumb{ background: var(--primary-pale); border-radius: 10px; }
+
+  /* ---------- Header ---------- */
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 5vw;
+    background: rgba(243, 249, 248, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .4s ease, box-shadow .4s ease;
+  }
+  header.scrolled{
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    letter-spacing: .04em;
+  }
+  .brand .ripple-dot{
+    width: 10px; height:10px; border-radius:50%;
+    background: var(--primary);
+    position: relative;
+    flex-shrink:0;
+  }
+  .brand .ripple-dot::before, .brand .ripple-dot::after{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:50%;
+    border: 1px solid var(--primary);
+    animation: ripple 2.8s ease-out infinite;
+    opacity:0;
+  }
+  .brand .ripple-dot::after{ animation-delay: 1.4s; }
+  @keyframes ripple{
+    0%{ transform: scale(1); opacity:.55; }
+    100%{ transform: scale(3.2); opacity:0; }
+  }
+
+  nav.mainnav{ display:flex; gap: 4px; }
+  nav.mainnav button{
+    background: none; border:none; cursor:pointer;
+    padding: 9px 16px;
+    font-size: .92rem;
+    color: var(--text-muted);
+    border-radius: 999px;
+    transition: all .3s ease;
+    white-space: nowrap;
+  }
+  nav.mainnav button:hover{ color: var(--primary-dark); background: var(--surface-alt); }
+  nav.mainnav button.active{ color: var(--surface); background: var(--primary); font-weight:500; }
+
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding: 6px; }
+  .nav-toggle span{ display:block; width:22px; height:2px; background: var(--primary-dark); margin:5px 0; border-radius:2px; transition: all .3s; }
+
+  /* ---------- Layout shell ---------- */
+  main{ padding-top: 74px; }
+  .section{ display:none; min-height: 100vh; }
+  .section.active{ display:block; }
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 6vw; }
+
+  /* ---------- Hero (home) ---------- */
+  .hero{
+    position: relative;
+    padding: 122px 6vw 54px;
+    text-align:center;
+    overflow: hidden;
+  }
+  .intro-line{
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: .03em;
+  }
+
+  .bubbles{ position:absolute; inset:0; pointer-events:none; z-index:0; }
+  .bubble{
+    position:absolute;
+    bottom: -60px;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(159,199,211,.35));
+    animation: rise linear infinite;
+    opacity:.6;
+  }
+  @keyframes rise{
+    0%{ transform: translateY(0) translateX(0); opacity:0; }
+    10%{ opacity:.55; }
+    90%{ opacity:.35; }
+    100%{ transform: translateY(-620px) translateX(20px); opacity:0; }
+  }
+
+  .wave-divider{ display:block; width:100%; height:70px; margin-top: 10px; }
+  .wave-divider path{ fill: var(--bg-soft); }
+
+  /* ---------- Module cards on home ---------- */
+  .modules{
+    background: var(--bg-soft);
+    padding: 10px 6vw 100px;
+  }
+  .modules-grid{
+    max-width: 1080px; margin: 0 auto;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .modules-grid .mcard:nth-child(4),
+  .modules-grid .mcard:nth-child(5){ grid-column: span 1; }
+
+  .mcard{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 46px 26px;
+    cursor: pointer;
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    position: relative;
+    overflow: hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:16px;
+    min-height: 164px;
+  }
+  .mcard:hover{
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary-pale);
+  }
+  .mcard:hover .icon{ color: var(--primary); }
+  .mcard .icon{
+    width:40px; height:40px;
+    color: var(--primary-dark);
+    transition: color .3s ease;
+  }
+  .mcard h3{
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: .04em;
+  }
+
+  /* ---------- Section header (inner pages) ---------- */
+  .page-head{
+    padding: 64px 0 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .page-head .back{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size: .85rem; color: var(--text-muted);
+    margin-bottom: 20px; cursor:pointer;
+  }
+  .page-head .back:hover{ color: var(--primary-dark); }
+  .page-head h2{
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .page-head p{ color: var(--text-muted); font-weight:300; max-width: 560px; }
+
+  .content-body{ padding-bottom: 100px; }
+
+  /* ---------- Tabs (subcategories) ---------- */
+  .tabs{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-bottom: 34px;
+  }
+  .tabs button{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor:pointer;
+    font-size: .88rem;
+    color: var(--text-muted);
+    transition: all .3s ease;
+  }
+  .tabs button:hover{ border-color: var(--primary-pale); color: var(--primary-dark); }
+  .tabs button.active{
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; animation: fadein .4s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+
+  /* ---------- Empty state ---------- */
+  .empty-state{
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: 50px 34px;
+    text-align:center;
+  }
+  .empty-state .ico{ width:38px; height:38px; margin: 0 auto 16px; color: var(--primary); opacity:.7; }
+  .empty-state h4{ font-family: var(--serif); font-size:1.05rem; color: var(--text); margin-bottom:8px; }
+  .empty-state p{ color: var(--text-faint); font-size:.87rem; max-width:380px; margin:0 auto; font-weight:300; }
+
+  /* special: swim posture two-column */
+  .posture-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width:640px){ .posture-grid{ grid-template-columns: 1fr; } }
+  .posture-col h5{
+    font-family: var(--serif); font-size: .95rem; color: var(--primary-dark);
+    margin-bottom: 12px; display:flex; align-items:center; gap:8px;
+  }
+  .posture-col h5::before{ content:''; width:6px; height:6px; border-radius:50%; background: var(--primary); }
+
+  /* ---------- Free-write areas ---------- */
+  .write-area{ margin-bottom: 6px; }
+  .write-box{
+    width:100%;
+    min-height: 340px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    font-size: .96rem;
+    line-height: 1.9;
+    color: var(--text);
+    resize: vertical;
+    transition: border-color .25s ease;
+  }
+  .write-box.compact{ min-height: 220px; }
+  .write-box:focus{ outline:none; border-color: var(--primary); }
+  .write-box::placeholder{ color: var(--text-faint); }
+  .write-actions{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top: 14px; flex-wrap:wrap; gap:10px;
+  }
+  .write-status{ font-size:.78rem; color: var(--text-faint); }
+  .btn-save{
+    background: var(--surface);
+    border: 1px solid var(--primary);
+    color: var(--primary-dark);
+    padding: 9px 24px;
+    border-radius: 999px;
+    font-size: .85rem;
+    cursor:pointer;
+    transition: all .3s ease;
+  }
+  .btn-save:hover{ background: var(--primary); color:#fff; }
+  .btn-save:disabled{ opacity:.7; cursor:default; }
+
+  /* ---------- Diary ---------- */
+  .diary-form, .msg-form{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 44px;
+    box-shadow: var(--shadow-soft);
+  }
+  .form-row{ display:flex; gap:14px; margin-bottom:14px; flex-wrap:wrap; }
+  .form-row.split > *{ flex:1; min-width: 180px; }
+  label{ font-size:.78rem; color: var(--text-muted); display:block; margin-bottom:6px; letter-spacing:.02em; }
+  input[type="text"], input[type="date"], textarea{
+    width:100%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: .92rem;
+    color: var(--text);
+    transition: border-color .25s ease;
+  }
+  input:focus, textarea:focus{ outline:none; border-color: var(--primary); }
+  textarea{ min-height: 90px; resize: vertical; font-family: var(--sans); }
+  .btn{
+    background: var(--primary);
+    color: #fff;
+    border:none;
+    padding: 11px 26px;
+    border-radius: 999px;
+    font-size: .9rem;
+    cursor:pointer;
+    transition: background .3s ease, transform .2s ease;
+  }
+  .btn:hover{ background: var(--primary-dark); transform: translateY(-1px); }
+  .btn:active{ transform: translateY(0); }
+  .form-hint{ font-size:.78rem; color: var(--text-faint); margin-top:10px; }
+  .form-error{ display:none; color:#C1584F; font-size:.82rem; margin:-6px 0 14px; }
+  .form-error.show{ display:block; }
+
+  .timeline{ position: relative; padding-left: 26px; }
+  .timeline::before{
+    content:'';
+    position:absolute; left:5px; top:6px; bottom:6px;
+    width:1px; background: var(--border);
+  }
+  .diary-entry{ position:relative; padding-bottom: 34px; }
+  .diary-entry::before{
+    content:''; position:absolute; left:-26px; top:6px;
+    width:11px; height:11px; border-radius:50%;
+    background: var(--surface); border:2px solid var(--primary);
+  }
+  .diary-entry .d-date{ font-size:.78rem; color: var(--primary-dark); letter-spacing:.05em; margin-bottom:6px; }
+  .diary-entry h4{ font-family: var(--serif); font-size:1.15rem; margin-bottom:8px; color: var(--text); }
+  .diary-entry .d-content{ color: var(--text-muted); font-size:.92rem; font-weight:300; white-space:pre-wrap; }
+
+  /* ---------- Messages ---------- */
+  .msg-list{ display:flex; flex-direction:column; gap:16px; }
+  .msg-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    position:relative;
+  }
+  .msg-card .m-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+  .msg-card .m-name{ font-weight:500; color: var(--primary-dark); font-size:.92rem; }
+  .msg-card .m-time{ font-size:.74rem; color: var(--text-faint); }
+  .msg-card .m-text{ color: var(--text); font-size:.92rem; font-weight:300; white-space:pre-wrap; }
+
+  .loading-row{ text-align:center; color: var(--text-faint); font-size:.85rem; padding: 30px 0; }
+
+  footer{
+    text-align:center; padding: 34px 6vw 50px;
+    color: var(--text-faint); font-size:.8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .modules-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 640px){
+    nav.mainnav{
+      position: fixed; top: 62px; left:0; right:0;
+      background: var(--surface);
+      flex-direction: column;
+      padding: 10px 5vw 20px;
+      border-bottom: 1px solid var(--border);
+      transform: translateY(-130%);
+      transition: transform .35s ease;
+      box-shadow: var(--shadow);
+    }
+    nav.mainnav.open{ transform: translateY(0); }
+    nav.mainnav button{ text-align:left; padding:12px 10px; }
+    .nav-toggle{ display:block; }
+    .modules-grid{ grid-template-columns: 1fr; }
+    .form-row.split{ flex-direction:column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="brand">
+    <span class="ripple-dot"></span>
+    止水 · 个人知识空间
+  </div>
+  <nav class="mainnav" id="mainNav">
+    <button data-target="home" class="active">首页</button>
+    <button data-target="reading">读书笔记</button>
+    <button data-target="swim">游泳知识</button>
+    <button data-target="life">生活经验</button>
+    <button data-target="diary">我的日记</button>
+    <button data-target="messages">留言板</button>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="打开菜单">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <section class="section active" id="home" data-section>
+    <div class="hero">
+      <div class="bubbles" id="bubbles"></div>
+      <p class="intro-line">是个人知识和思考的承载地。</p>
+    </div>
+    <svg class="wave-divider" viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,40 C240,90 480,0 720,30 C960,60 1200,10 1440,40 L1440,70 L0,70 Z"></path></svg>
+
+    <div class="modules">
+      <div class="modules-grid">
+
+        <div class="mcard" data-target="reading">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 12c-4-4-11-5-17-3v27c6-2 13-1 17 3 4-4 11-5 17-3V9c-6-2-13-1-17 3Z"/><path d="M24 12v27"/></svg>
+          <h3>读书笔记</h3>
+        </div>
+
+        <div class="mcard" data-target="swim">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18c4 4 7-4 11 0s7-4 11 0 7-4 11 0 7-4 7 0"/><path d="M4 28c4 4 7-4 11 0s7-4 11 0 7-4 11 0 7-4 7 0"/><path d="M4 38c4 4 7-4 11 0s7-4 11 0 7-4 11 0 7-4 7 0"/></svg>
+          <h3>游泳知识</h3>
+        </div>
+
+        <div class="mcard" data-target="life">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 42c9-6 15-13 15-21a11 11 0 0 0-15-10 11 11 0 0 0-15 10c0 8 6 15 15 21Z"/></svg>
+          <h3>生活经验</h3>
+        </div>
+
+        <div class="mcard" data-target="diary">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 6h22l6 6v30a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/><path d="M32 6v6h6"/><path d="M14 22h16M14 28h16M14 34h10"/></svg>
+          <h3>我的日记</h3>
+        </div>
+
+        <div class="mcard" data-target="messages">
+          <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 10h36v22H18l-8 8v-8H6z"/><circle cx="16" cy="21" r="1.6" fill="currentColor" stroke="none"/><circle cx="24" cy="21" r="1.6" fill="currentColor" stroke="none"/><circle cx="32" cy="21" r="1.6" fill="currentColor" stroke="none"/></svg>
+          <h3>留言板</h3>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ READING ============ -->
+  <section class="section" id="reading" data-section>
+    <div class="wrap">
+      <div class="page-head">
+        <span class="back" data-target="home">← 返回首页</span>
+        <h2>读书笔记</h2>
+        <p>阅读是与他人思想的对话，也是与自己的对话。</p>
+      </div>
+      <div class="content-body">
+        <div class="tabs" data-tabgroup="reading">
+          <button class="active" data-tab="r1">历史记忆</button>
+          <button data-tab="r2">毛选提炼</button>
+          <button data-tab="r3">自由空间</button>
+        </div>
+
+        <div class="tab-panel active" data-panel="r1">
+          <div class="write-area">
+            <textarea class="write-box" data-module="reading" data-key="r1" placeholder="在这里自由书写「历史记忆」的阅读笔记与思考……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="reading:r1">尚未保存内容</span>
+              <button class="btn-save" data-save="reading:r1">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="r2">
+          <div class="write-area">
+            <textarea class="write-box" data-module="reading" data-key="r2" placeholder="在这里自由书写《毛泽东选集》的要点提炼与心得……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="reading:r2">尚未保存内容</span>
+              <button class="btn-save" data-save="reading:r2">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="r3">
+          <div class="write-area">
+            <textarea class="write-box" data-module="reading" data-key="r3" placeholder="在这里自由书写不拘一格的阅读随想……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="reading:r3">尚未保存内容</span>
+              <button class="btn-save" data-save="reading:r3">保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SWIM ============ -->
+  <section class="section" id="swim" data-section>
+    <div class="wrap">
+      <div class="page-head">
+        <span class="back" data-target="home">← 返回首页</span>
+        <h2>游泳知识</h2>
+        <p>从下水的第一天到掌握技巧的每一步，都值得记录。</p>
+      </div>
+      <div class="content-body">
+        <div class="tabs" data-tabgroup="swim">
+          <button class="active" data-tab="s1">游泳体验</button>
+          <button data-tab="s2">基础知识</button>
+          <button data-tab="s3">进阶知识</button>
+          <button data-tab="s4">装备分享</button>
+          <button data-tab="s5">场地选择</button>
+          <button data-tab="s6">游泳姿势</button>
+          <button data-tab="s7">蛙泳技巧</button>
+        </div>
+
+        <div class="tab-panel active" data-panel="s1">
+          <div class="write-area">
+            <textarea class="write-box" data-module="swim" data-key="s1" placeholder="在这里自由书写每一次下水的真实感受……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="swim:s1">尚未保存内容</span>
+              <button class="btn-save" data-save="swim:s1">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="s2">
+          <div class="write-area">
+            <textarea class="write-box" data-module="swim" data-key="s2" placeholder="在这里自由书写呼吸、漂浮、水感等基础知识……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="swim:s2">尚未保存内容</span>
+              <button class="btn-save" data-save="swim:s2">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="s3">
+          <div class="write-area">
+            <textarea class="write-box" data-module="swim" data-key="s3" placeholder="在这里自由书写效率、耐力与技术细节的进阶内容……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="swim:s3">尚未保存内容</span>
+              <button class="btn-save" data-save="swim:s3">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="s4">
+          <div class="write-area">
+            <textarea class="write-box" data-module="swim" data-key="s4" placeholder="在这里自由书写泳镜、泳帽、泳衣等装备的使用体会……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="swim:s4">尚未保存内容</span>
+              <button class="btn-save" data-save="swim:s4">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="s5">
+          <div class="write-area">
+            <textarea class="write-box" data-module="swim" data-key="s5" placeholder="在这里自由书写泳池、开放水域的选择心得……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="swim:s5">尚未保存内容</span>
+              <button class="btn-save" data-save="swim:s5">保存</button>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="s6">
+          <div class="posture-grid">
+            <div class="posture-col">
+              <h5>已经掌握</h5>
+              <div class="write-area">
+                <textarea class="write-box compact" data-module="swim" data-key="s6_mastered" placeholder="记录已经熟练掌握的泳姿……"></textarea>
+                <div class="write-actions">
+                  <span class="write-status" data-status-for="swim:s6_mastered">尚未保存内容</span>
+                  <button class="btn-save" data-save="swim:s6_mastered">保存</button>
+                </div>
+              </div>
+            </div>
+            <div class="posture-col">
+              <h5>期待掌握</h5>
+              <div class="write-area">
+                <textarea class="write-box compact" data-module="swim" data-key="s6_want" placeholder="记录还在学习路上、期待突破的泳姿……"></textarea>
+                <div class="write-actions">
+                  <span class="write-status" data-status-for="swim:s6_want">尚未保存内容</span>
+                  <button class="btn-save" data-save="swim:s6_want">保存</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="s7">
+          <div class="write-area">
+            <textarea class="write-box" data-module="swim" data-key="s7" placeholder="在这里自由书写蛙泳的专项技巧与发力细节……"></textarea>
+            <div class="write-actions">
+              <span class="write-status" data-status-for="swim:s7">尚未保存内容</span>
+              <button class="btn-save" data-save="swim:s7">保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIFE ============ -->
+  <section class="section" id="life" data-section>
+    <div class="wrap">
+      <div class="page-head">
+        <span class="back" data-target="home">← 返回首页</span>
+        <h2>生活经验</h2>
+        <p>零散但真实的生活小结。</p>
+      </div>
+      <div class="content-body">
+        <div class="write-area">
+          <textarea class="write-box" data-module="life" data-key="main" placeholder="在这里自由书写生活中的经验与感悟……"></textarea>
+          <div class="write-actions">
+            <span class="write-status" data-status-for="life:main">尚未保存内容</span>
+            <button class="btn-save" data-save="life:main">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIARY ============ -->
+  <section class="section" id="diary" data-section>
+    <div class="wrap">
+      <div class="page-head">
+        <span class="back" data-target="home">← 返回首页</span>
+        <h2>我的日记</h2>
+        <p>按日期与标题记录，纵向展开的生活切片。</p>
+      </div>
+      <div class="content-body">
+
+        <form class="diary-form" id="diaryForm">
+          <div class="form-row split">
+            <div>
+              <label for="dDate">日期</label>
+              <input type="date" id="dDate" required>
+            </div>
+            <div>
+              <label for="dTitle">标题</label>
+              <input type="text" id="dTitle" placeholder="给这一天起个标题" required maxlength="60">
+            </div>
+            <div>
+              <label for="dPassword">密码</label>
+              <input type="password" id="dPassword" placeholder="发布需要密码" required autocomplete="off">
+            </div>
+          </div>
+          <div class="form-row">
+            <div style="flex:1">
+              <label for="dContent">内容</label>
+              <textarea id="dContent" placeholder="写下今天想记录的事……" required maxlength="4000"></textarea>
+            </div>
+          </div>
+          <p class="form-error" id="dPasswordError">密码不正确，日记未发布</p>
+          <button type="submit" class="btn">发布日记</button>
+          <p class="form-hint">发布需要密码验证，发布后所有访问者都可以看到这篇日记。</p>
+        </form>
+
+        <div class="timeline" id="diaryList">
+          <div class="loading-row">日记加载中…</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MESSAGES ============ -->
+  <section class="section" id="messages" data-section>
+    <div class="wrap">
+      <div class="page-head">
+        <span class="back" data-target="home">← 返回首页</span>
+        <h2>留言板</h2>
+        <p>路过的话，欢迎留下一点涟漪。留言会公开展示给所有访问者。</p>
+      </div>
+      <div class="content-body">
+
+        <form class="msg-form" id="msgForm">
+          <div class="form-row split">
+            <div>
+              <label for="mName">称呼（选填）</label>
+              <input type="text" id="mName" placeholder="匿名" maxlength="24">
+            </div>
+          </div>
+          <div class="form-row">
+            <div style="flex:1">
+              <label for="mText">留言内容</label>
+              <textarea id="mText" placeholder="说点什么吧……" required maxlength="500"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn">留下这句话</button>
+        </form>
+
+        <div class="msg-list" id="msgList">
+          <div class="loading-row">留言加载中…</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>止水 · 个人知识空间 — 记录，是为了更好地前行</footer>
+
+<script>
+  // ---------------- Navigation ----------------
+  const sections = document.querySelectorAll('[data-section]');
+  const navButtons = document.querySelectorAll('nav.mainnav button');
+  const mainNav = document.getElementById('mainNav');
+  const navToggle = document.getElementById('navToggle');
+
+  function goTo(target){
+    sections.forEach(s => s.classList.toggle('active', s.id === target));
+    navButtons.forEach(b => b.classList.toggle('active', b.dataset.target === target));
+    window.scrollTo({top:0, behavior:'smooth'});
+    mainNav.classList.remove('open');
+  }
+
+  document.querySelectorAll('[data-target]').forEach(el => {
+    el.addEventListener('click', () => goTo(el.dataset.target));
+  });
+
+  navToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ---------------- Tabs ----------------
+  document.querySelectorAll('[data-tabgroup]').forEach(group => {
+    const buttons = group.querySelectorAll('button');
+    const panelWrap = group.parentElement;
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        panelWrap.querySelectorAll('.tab-panel').forEach(p => {
+          p.classList.toggle('active', p.dataset.panel === btn.dataset.tab);
+        });
+      });
+    });
+  });
+
+  // ---------------- Bubbles decoration ----------------
+  const bubbleContainer = document.getElementById('bubbles');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!prefersReduced){
+    for(let i=0;i<14;i++){
+      const b = document.createElement('div');
+      b.className = 'bubble';
+      const size = 6 + Math.random()*16;
+      b.style.width = size+'px';
+      b.style.height = size+'px';
+      b.style.left = Math.random()*100+'%';
+      b.style.animationDuration = (9 + Math.random()*10)+'s';
+      b.style.animationDelay = (Math.random()*10)+'s';
+      bubbleContainer.appendChild(b);
+    }
+  }
+
+  // ---------------- Storage helpers ----------------
+  async function loadList(key){
+    try{
+      const res = await window.storage.get(key, true);
+      return res ? JSON.parse(res.value) : [];
+    }catch(e){
+      return [];
+    }
+  }
+  async function saveList(key, list){
+    try{
+      const res = await window.storage.set(key, JSON.stringify(list), true);
+      return !!res;
+    }catch(e){
+      console.error('storage error', e);
+      return false;
+    }
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function fmtDate(dateStr){
+    const d = new Date(dateStr + 'T00:00:00');
+    if(isNaN(d)) return dateStr;
+    const weekdays = ['周日','周一','周二','周三','周四','周五','周六'];
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${weekdays[d.getDay()]}`;
+  }
+
+  function fmtTime(ts){
+    const d = new Date(ts);
+    const pad = n => String(n).padStart(2,'0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  // ---------------- Diary ----------------
+  const DIARY_KEY = 'diary-entries';
+  const diaryList = document.getElementById('diaryList');
+  const diaryForm = document.getElementById('diaryForm');
+
+  function renderDiary(entries){
+    if(!entries.length){
+      diaryList.innerHTML = `
+        <div class="empty-state" style="margin-left:-26px;">
+          <h4>还没有日记</h4>
+          <p>写下第一篇，开启这段纵向的时间线。</p>
+        </div>`;
+      return;
+    }
+    const sorted = [...entries].sort((a,b) => (b.date+b.created).localeCompare(a.date+a.created));
+    diaryList.innerHTML = sorted.map(e => `
+      <div class="diary-entry">
+        <div class="d-date">${fmtDate(e.date)}</div>
+        <h4>${escapeHtml(e.title)}</h4>
+        <div class="d-content">${escapeHtml(e.content)}</div>
+      </div>
+    `).join('');
+  }
+
+  async function initDiary(){
+    const entries = await loadList(DIARY_KEY);
+    renderDiary(entries);
+  }
+
+  const DIARY_PASSWORD = 'jiangchen';
+  const dPasswordError = document.getElementById('dPasswordError');
+  const dPasswordInput = document.getElementById('dPassword');
+
+  diaryForm.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const date = document.getElementById('dDate').value;
+    const title = document.getElementById('dTitle').value.trim();
+    const content = document.getElementById('dContent').value.trim();
+    const password = dPasswordInput.value;
+    if(!date || !title || !content) return;
+
+    if(password !== DIARY_PASSWORD){
+      dPasswordError.classList.add('show');
+      dPasswordInput.value = '';
+      dPasswordInput.focus();
+      return;
+    }
+    dPasswordError.classList.remove('show');
+
+    const submitBtn = diaryForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '发布中…';
+
+    const entries = await loadList(DIARY_KEY);
+    entries.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+      date, title, content,
+      created: Date.now().toString()
+    });
+    const ok = await saveList(DIARY_KEY, entries);
+    submitBtn.disabled = false;
+    submitBtn.textContent = '发布日记';
+
+    if(ok){
+      diaryForm.reset();
+      document.getElementById('dDate').valueAsDate = new Date();
+      renderDiary(entries);
+    }else{
+      alert('保存失败，请稍后重试');
+    }
+  });
+
+  // ---------------- Messages ----------------
+  const MSG_KEY = 'guestbook-messages';
+  const msgList = document.getElementById('msgList');
+  const msgForm = document.getElementById('msgForm');
+
+  function renderMessages(list){
+    if(!list.length){
+      msgList.innerHTML = `
+        <div class="empty-state">
+          <h4>还没有留言</h4>
+          <p>成为第一个留下涟漪的人吧。</p>
+        </div>`;
+      return;
+    }
+    const sorted = [...list].sort((a,b) => b.ts - a.ts);
+    msgList.innerHTML = sorted.map(m => `
+      <div class="msg-card">
+        <div class="m-top">
+          <span class="m-name">${escapeHtml(m.name || '匿名')}</span>
+          <span class="m-time">${fmtTime(m.ts)}</span>
+        </div>
+        <div class="m-text">${escapeHtml(m.text)}</div>
+      </div>
+    `).join('');
+  }
+
+  async function initMessages(){
+    const list = await loadList(MSG_KEY);
+    renderMessages(list);
+  }
+
+  msgForm.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const name = document.getElementById('mName').value.trim();
+    const text = document.getElementById('mText').value.trim();
+    if(!text) return;
+
+    const submitBtn = msgForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '发送中…';
+
+    const list = await loadList(MSG_KEY);
+    list.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+      name, text, ts: Date.now()
+    });
+    const ok = await saveList(MSG_KEY, list);
+    submitBtn.disabled = false;
+    submitBtn.textContent = '留下这句话';
+
+    if(ok){
+      msgForm.reset();
+      renderMessages(list);
+    }else{
+      alert('留言发送失败，请稍后重试');
+    }
+  });
+
+  // ---------------- Free-write content areas ----------------
+  const CONTENT_KEYS = { reading: 'content-reading', swim: 'content-swim', life: 'content-life' };
+  let contentCache = { reading:{}, swim:{}, life:{} };
+
+  async function loadContent(moduleKey){
+    try{
+      const res = await window.storage.get(CONTENT_KEYS[moduleKey], true);
+      return res ? JSON.parse(res.value) : {};
+    }catch(e){
+      return {};
+    }
+  }
+
+  function updateWriteStatus(mod, key){
+    const entry = contentCache[mod][key];
+    const statusEl = document.querySelector(`.write-status[data-status-for="${mod}:${key}"]`);
+    if(!statusEl) return;
+    statusEl.textContent = (entry && entry.text) ? `最近保存于 ${fmtTime(entry.updated)}` : '尚未保存内容';
+  }
+
+  async function initContentAreas(){
+    for(const mod of Object.keys(CONTENT_KEYS)){
+      contentCache[mod] = await loadContent(mod);
+      document.querySelectorAll(`.write-box[data-module="${mod}"]`).forEach(box => {
+        const key = box.dataset.key;
+        const entry = contentCache[mod][key];
+        if(entry && entry.text) box.value = entry.text;
+        updateWriteStatus(mod, key);
+      });
+    }
+  }
+
+  document.querySelectorAll('.btn-save').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const [mod, key] = btn.dataset.save.split(':');
+      const box = document.querySelector(`.write-box[data-module="${mod}"][data-key="${key}"]`);
+      const text = box.value;
+      const original = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '保存中…';
+      const data = await loadContent(mod);
+      data[key] = { text, updated: Date.now() };
+      const ok = await window.storage.set(CONTENT_KEYS[mod], JSON.stringify(data), true);
+      contentCache[mod] = data;
+      btn.textContent = ok ? '已保存' : '保存失败';
+      updateWriteStatus(mod, key);
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1400);
+    });
+  });
+
+  // default date = today
+  document.getElementById('dDate').valueAsDate = new Date();
+
+  initDiary();
+  initMessages();
+  initContentAreas();
+</script>
+
+</body>
+</html>
