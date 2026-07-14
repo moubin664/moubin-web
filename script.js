@@ -167,7 +167,20 @@ function fmtTime(ts){
 
 const DIARY_KEY = 'diary-entries';
 const diaryList = document.getElementById('diaryList');
+const diaryAuth = document.getElementById('diaryAuth');
+const diaryContent = document.getElementById('diaryContent');
+const diaryPasswordInput = document.getElementById('diaryPassword');
+const diaryAuthBtn = document.getElementById('diaryAuthBtn');
+const diaryAuthError = document.getElementById('diaryAuthError');
+
 const diaryForm = document.getElementById('diaryForm');
+const dDate = document.getElementById('dDate');
+const dTitle = document.getElementById('dTitle');
+const dContent = document.getElementById('dContent');
+const dId = document.getElementById('dId');
+const dSubmit = document.getElementById('dSubmit');
+
+const DIARY_PASSWORD = 'jiangchen';
 
 function renderDiary(entries){
   if(!entries.length){
@@ -180,60 +193,119 @@ function renderDiary(entries){
   }
   const sorted = [...entries].sort((a,b) => (b.date+b.created).localeCompare(a.date+a.created));
   diaryList.innerHTML = sorted.map(e => `
-    <div class="diary-entry">
+    <div class="diary-entry" data-id="${e.id}">
       <div class="d-date">${fmtDate(e.date)}</div>
       <h4>${escapeHtml(e.title)}</h4>
       <div class="d-content">${escapeHtml(e.content)}</div>
+      <div class="d-actions">
+        <button class="btn-edit" data-id="${e.id}">编辑</button>
+        <button class="btn-delete" data-id="${e.id}">删除</button>
+      </div>
     </div>
   `).join('');
+
+  document.querySelectorAll('.btn-edit').forEach(btn => {
+    btn.addEventListener('click', () => editDiary(btn.dataset.id));
+  });
+
+  document.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', () => deleteDiary(btn.dataset.id));
+  });
 }
 
-async function initDiary(){
+async function loadDiary(){
   const entries = await loadList(DIARY_KEY);
   renderDiary(entries);
 }
 
-const DIARY_PASSWORD = 'jiangchen';
-const dPasswordError = document.getElementById('dPasswordError');
-const dPasswordInput = document.getElementById('dPassword');
-
-diaryForm.addEventListener('submit', async (ev) => {
-  ev.preventDefault();
-  const date = document.getElementById('dDate').value;
-  const title = document.getElementById('dTitle').value.trim();
-  const content = document.getElementById('dContent').value.trim();
-  const password = dPasswordInput.value;
+async function saveDiary(){
+  const id = dId.value;
+  const date = dDate.value;
+  const title = dTitle.value.trim();
+  const content = dContent.value.trim();
   if(!date || !title || !content) return;
 
-  if(password !== DIARY_PASSWORD){
-    dPasswordError.classList.add('show');
-    dPasswordInput.value = '';
-    dPasswordInput.focus();
-    return;
-  }
-  dPasswordError.classList.remove('show');
-
-  const submitBtn = diaryForm.querySelector('button[type="submit"]');
-  submitBtn.disabled = true;
-  submitBtn.textContent = '发布中…';
+  dSubmit.disabled = true;
+  dSubmit.textContent = '保存中…';
 
   const entries = await loadList(DIARY_KEY);
-  entries.push({
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
-    date, title, content,
-    created: Date.now().toString()
-  });
+
+  if(id){
+    const index = entries.findIndex(e => e.id === id);
+    if(index !== -1){
+      entries[index] = { ...entries[index], date, title, content };
+    }
+  }else{
+    entries.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+      date, title, content,
+      created: Date.now().toString()
+    });
+  }
+
   const ok = await saveList(DIARY_KEY, entries);
-  submitBtn.disabled = false;
-  submitBtn.textContent = '发布日记';
+  dSubmit.disabled = false;
+  dSubmit.textContent = '发布日记';
 
   if(ok){
     diaryForm.reset();
-    document.getElementById('dDate').valueAsDate = new Date();
+    dDate.valueAsDate = new Date();
+    dId.value = '';
     renderDiary(entries);
   }else{
     alert('保存失败，请稍后重试');
   }
+}
+
+async function editDiary(id){
+  const entries = await loadList(DIARY_KEY);
+  const entry = entries.find(e => e.id === id);
+  if(entry){
+    dId.value = entry.id;
+    dDate.value = entry.date;
+    dTitle.value = entry.title;
+    dContent.value = entry.content;
+    dSubmit.textContent = '保存修改';
+    dDate.focus();
+  }
+}
+
+async function deleteDiary(id){
+  if(!confirm('确定要删除这篇日记吗？')) return;
+  const entries = await loadList(DIARY_KEY);
+  const filtered = entries.filter(e => e.id !== id);
+  const ok = await saveList(DIARY_KEY, filtered);
+  if(ok){
+    renderDiary(filtered);
+  }else{
+    alert('删除失败，请稍后重试');
+  }
+}
+
+diaryAuthBtn.addEventListener('click', async () => {
+  const password = diaryPasswordInput.value;
+  if(password !== DIARY_PASSWORD){
+    diaryAuthError.classList.add('show');
+    diaryPasswordInput.value = '';
+    diaryPasswordInput.focus();
+    return;
+  }
+  diaryAuthError.classList.remove('show');
+  diaryAuth.style.display = 'none';
+  diaryContent.style.display = 'block';
+  dDate.valueAsDate = new Date();
+  await loadDiary();
+});
+
+diaryPasswordInput.addEventListener('keypress', (ev) => {
+  if(ev.key === 'Enter'){
+    diaryAuthBtn.click();
+  }
+});
+
+diaryForm.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  saveDiary();
 });
 
 const MSG_KEY = 'guestbook-messages';

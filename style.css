@@ -574,6 +574,50 @@ textarea{ min-height: 90px; resize: vertical; font-family: var(--sans); }
 .form-error{ display:none; color:#C1584F; font-size:.82rem; margin:-6px 0 14px; }
 .form-error.show{ display:block; }
 
+.diary-auth{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+.diary-auth-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 50px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+.diary-auth-card h3{
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--primary-dark);
+  margin-bottom: 24px;
+}
+.auth-form{
+  display: flex;
+  gap: 12px;
+}
+.auth-form input{
+  flex: 1;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: .95rem;
+}
+.auth-error{
+  display: none;
+  color: #C1584F;
+  font-size: .82rem;
+  margin-top: 14px;
+}
+.auth-error.show{
+  display: block;
+}
+
 .timeline{ position: relative; padding-left: 26px; }
 .timeline::before{
   content:'';
@@ -589,6 +633,36 @@ textarea{ min-height: 90px; resize: vertical; font-family: var(--sans); }
 .diary-entry .d-date{ font-size:.78rem; color: var(--primary-dark); letter-spacing:.05em; margin-bottom:6px; }
 .diary-entry h4{ font-family: var(--serif); font-size:1.15rem; margin-bottom:8px; color: var(--text); }
 .diary-entry .d-content{ color: var(--text-muted); font-size:.92rem; font-weight:300; white-space:pre-wrap; }
+.d-actions{
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+.btn-edit, .btn-delete{
+  background: none;
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: .78rem;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.btn-edit{
+  color: var(--primary);
+}
+.btn-edit:hover{
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.btn-delete{
+  color: #C1584F;
+}
+.btn-delete:hover{
+  background: #C1584F;
+  color: #fff;
+  border-color: #C1584F;
+}
 
 /* ---------- Messages ---------- */
 .msg-list{ display:flex; flex-direction:column; gap:16px; }
