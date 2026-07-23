@@ -21,7 +21,7 @@
     <button data-target="misc">杂记</button>
     <button data-target="ai">AI</button>
   </nav>
-  <button class="nav-toggle" id="navToggle" aria-label="打开菜单">
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-controls="mainNav" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </header>
@@ -87,9 +87,9 @@
     <div class="reading-layout">
       <div class="reading-content">
         <div class="reading-sidebar">
-          <div class="reading-category" data-reading-tab="r1">历史记忆</div>
-          <div class="reading-category" data-reading-tab="r2">毛选提炼</div>
-          <div class="reading-category" data-reading-tab="r3">自由空间</div>
+          <button class="reading-category" type="button" data-reading-tab="r1" aria-pressed="false">历史记忆</button>
+          <button class="reading-category" type="button" data-reading-tab="r2" aria-pressed="false">毛选提炼</button>
+          <button class="reading-category" type="button" data-reading-tab="r3" aria-pressed="false">自由空间</button>
         </div>
         <div class="reading-main">
           <div class="reading-placeholder" id="readingPlaceholder">
@@ -177,13 +177,13 @@
     <div class="swim-layout">
       <div class="swim-content">
         <div class="swim-sidebar">
-          <div class="swim-category" data-swim-tab="s1">游泳体验</div>
-          <div class="swim-category" data-swim-tab="s2">基础知识</div>
-          <div class="swim-category" data-swim-tab="s3">进阶知识</div>
-          <div class="swim-category" data-swim-tab="s4">装备分享</div>
-          <div class="swim-category" data-swim-tab="s5">场地选择</div>
-          <div class="swim-category" data-swim-tab="s6">游泳姿势</div>
-          <div class="swim-category" data-swim-tab="s7">蛙泳技巧</div>
+          <button class="swim-category" type="button" data-swim-tab="s1" aria-pressed="false">游泳体验</button>
+          <button class="swim-category" type="button" data-swim-tab="s2" aria-pressed="false">基础知识</button>
+          <button class="swim-category" type="button" data-swim-tab="s3" aria-pressed="false">进阶知识</button>
+          <button class="swim-category" type="button" data-swim-tab="s4" aria-pressed="false">装备分享</button>
+          <button class="swim-category" type="button" data-swim-tab="s5" aria-pressed="false">场地选择</button>
+          <button class="swim-category" type="button" data-swim-tab="s6" aria-pressed="false">游泳姿势</button>
+          <button class="swim-category" type="button" data-swim-tab="s7" aria-pressed="false">蛙泳技巧</button>
         </div>
         <div class="swim-main">
           <div class="swim-placeholder" id="swimPlaceholder">
@@ -362,8 +362,8 @@
     <div class="notes-layout">
       <div class="notes-content">
         <div class="notes-sidebar">
-          <div class="notes-category" data-notes-tab="m1">句子</div>
-          <div class="notes-category" data-notes-tab="m2">其他</div>
+          <button class="notes-category" type="button" data-notes-tab="m1" aria-pressed="false">句子</button>
+          <button class="notes-category" type="button" data-notes-tab="m2" aria-pressed="false">其他</button>
         </div>
         <div class="notes-main">
           <div class="notes-placeholder" data-notes-placeholder>
