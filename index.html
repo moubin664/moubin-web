@@ -18,9 +18,8 @@
     <button data-target="home" class="active">首页</button>
     <button data-target="reading">读书笔记</button>
     <button data-target="swim">游泳知识</button>
-    <button data-target="life">生活经验</button>
-    <button data-target="diary">我的日记</button>
-    <button data-target="messages">留言板</button>
+    <button data-target="misc">杂记</button>
+    <button data-target="ai">AI</button>
   </nav>
   <button class="nav-toggle" id="navToggle" aria-label="打开菜单">
     <span></span><span></span><span></span>
@@ -30,19 +29,56 @@
 <main>
 
   <!-- ============ HOME ============ -->
-  <section class="section active" id="home" data-section>
-    <div class="home-page">
-      <div class="brain-container" id="brainContainer">
-        <svg class="brain-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="150" cy="150" r="100" fill="none" stroke="currentColor" stroke-width="1.5" class="brain-outline"/>
-          <circle cx="150" cy="150" r="70" fill="none" stroke="currentColor" stroke-width="1" class="brain-inner"/>
-          <circle cx="150" cy="150" r="45" fill="none" stroke="currentColor" stroke-width="0.8" class="brain-core"/>
-        </svg>
-        <div class="nodes-container" id="nodesContainer"></div>
-        <div class="connections-container" id="connectionsContainer"></div>
+<section class="section active" id="home" data-section>
+
+<div class="home-page">
+
+    <div class="minimal-hero">
+
+
+        <div class="minimal-boy">
+
+            <div class="head"></div>
+
+            <div class="body"></div>
+
+            <div class="leg left"></div>
+
+            <div class="leg right"></div>
+
+        </div>
+
+
+        <div class="minimal-text">
+            <p>我一直在努力变得更好。</p>
+        </div>
+
+        <button class="hidden-door" type="button" data-target="other-side" aria-label="进入另一面">
+            <span class="door-caption">一扇门...</span>
+            <span class="door-figure" aria-hidden="true">
+                <span class="door-leaf">
+                    <span class="door-knob"></span>
+                </span>
+            </span>
+        </button>
+
+
+    </div>
+
+</div>
+
+</section>
+
+  <!-- ============ OTHER SIDE ============ -->
+  <section class="section" id="other-side" data-section>
+    <div class="other-side-page">
+      <button class="other-side-return" type="button" data-target="home">← 回到阅读</button>
+      <div class="joker-stage">
+        <!-- Image source: Vanity Fair / Warner Bros.-Everett Collection -->
+        <figure class="joker-portrait">
+          <img src="assets/joker-heath-ledger.jpg" alt="希斯·莱杰饰演的小丑" width="1440" height="960">
+        </figure>
       </div>
-      <h1 class="home-title">知识和思考的承载地</h1>
-      <p class="home-subtitle"></p>
     </div>
   </section>
 
@@ -139,10 +175,6 @@
   <!-- ============ SWIM ============ -->
   <section class="section" id="swim" data-section>
     <div class="swim-layout">
-      <div class="page-head">
-        <span class="back" data-target="home">← 返回首页</span>
-        <h2>游泳知识</h2>
-      </div>
       <div class="swim-content">
         <div class="swim-sidebar">
           <div class="swim-category" data-swim-tab="s1">游泳体验</div>
@@ -187,10 +219,10 @@
                 1.作为一项全身性的运动，他对身体素质的提高是可观的，而且长期游泳都会有这些共同的优点：身材匀称，宽肩窄腰，有明显的肌肉线条但不会也无法练到十分硕大。<br>
                  2.作为一项有氧运动，提高肺活量，增强心脏泵血能力是很自然的事情。<br>
                  3.改善体态（圆肩，驼背，含胸）：游泳的动作会对抗圆肩等的动作，游泳时不断重复动作，会不断阻抗不良体态，例如蛙泳手动作本身就会打开你的胸，使你无法再含着胸，除非你不打算换气非要憋死在水里。经过我的实践，一段时间后身姿确实会变得更挺拔。<br>
-                 4.缓解压力，改善睡眠(我认为这是最重要的一点)：一个浮躁的我进去，一个平静的我出来。由于陆地生物的关系，我们天然不适应水中的环境，在陆地你不需要去刻意维持呼吸，良好的生命状态会自然进行，所以你的大脑被各种琐事占据，但在水里，主动去呼吸变成了头等大事（除非你不想活了），所以你不得不将注意力持续用在游泳上。专注于一件事，水中低噪音的环境，规律的呼吸。于是类似冥想的状态就出现了。<br>
+                 4.缓解压力，改善睡眠(我认为这是最重要的一点)：一个浮躁的我进去，一个平静的我出来。由于陆地生物的关系，我们天然不适应水中的环境，在陆地你不需要去刻意维持呼吸，良好的生命状态会自然进行，所以你的大脑被各种琐事占据，但在水里，主动去呼吸变成了头等大事，所以你不得不将注意力持续用在游泳上。专注于一件事，水中低噪音的环境，规律的呼吸。于是类似冥想的状态就出现了。<br>
                  坏处：<br> 
                  1.可能的感染：水和游泳馆的卫生问题可能会导致部分皮肤病，真菌感染，耳道炎等各种疾病。<br>
-                 2。氯的刺激：泳池通常加入氯消毒，可能会皮肤干燥，伤害头发，刺激鼻腔等。 <br>
+                 2.氯的刺激：泳池通常加入氯消毒，可能会皮肤干燥，伤害头发，刺激鼻腔等。 <br>
                  3.溺水死亡。
               </p>
             </div>
@@ -218,7 +250,14 @@
             <div class="swim-content-view">
               <h3>         </h3>
               <p>1.泳帽用硅胶的，布的会兜水。<br>
-                 
+                 2.泳镜使用保养需注意以下事项:<br>
+                   泳镜镜片内壁千万不要用手或任何物品擦拭，以免破坏防雾涂层！！<br>
+                   &emsp;&emsp;1.泳镜到后 要试戴后下水，先调换鼻桥 调节到自己舒适并确定眼部周围有吸附力后 再调节镜带哦<br>
+                   &emsp;&emsp;2.调节好后 在家里直接脸盆或者是洗手池 试水 看下有无进水哦，，进水就会导致泳镜起雾哦<br>
+                   &emsp;&emsp;3.下泳池前 和游完后，都需要用自来水在脸盆里来回荡漾一下泳镜激活防雾涂层 和去除泳池污垢哦（不要用泳池的水）~期间手不要碰到泳镜内壁 清洗泳镜不要用任何有机溶<br>&emsp;&emsp;&emsp;液，例如酒精其他清洗液等，泳镜外表可以用手指清洗，然后放在阴凉处晾干<br>
+                   &emsp;&emsp;4.就算有起雾也不要用手去触碰内壁~<br>
+                   &emsp;&emsp;5.禁止放在比较热/高温地，泳镜收到热气防雾涂层会挥发哦（特别需要注意的是冬天东北的地暖及暖气）<br>
+                   &emsp;&emsp;6.泳镜眼罩、鼻桥、头带等配件都是采用硅酮、tpe、弹性体等材质，所以需要避开高温环境，避免老化。正确的使用和保养都能让佩戴效果更佳和使用寿命的延长哦<br>
 
 
                   
@@ -299,8 +338,10 @@
                  练习：压蛙泳腿
               </p>
               <h3>配合</h3>
-              <p>滑行，抬头，腿脚不动(伸直)，<br>
-                 低头，收腿(收翻)，蹬夹连贯。
+              <p>划手腿不动<br>
+                 收手再收腿<br>
+                 先伸胳膊再蹬腿<br>
+                 手脚并拢飘一会儿<br>
               
               
               
@@ -316,106 +357,75 @@
     </div>
   </section>
 
-  <!-- ============ LIFE ============ -->
-  <section class="section" id="life" data-section>
-    <div class="wrap">
-      <div class="page-head">
-        <span class="back" data-target="home">← 返回首页</span>
-        <h2>生活经验</h2>
-        <p>零散但真实的生活小结。</p>
-      </div>
-      <div class="content-body">
-        <div class="write-area">
-          <textarea class="write-box" data-module="life" data-key="main" placeholder="在这里自由书写生活中的经验与感悟……"></textarea>
-          <div class="write-actions">
-            <span class="write-status" data-status-for="life:main">尚未保存内容</span>
-            <button class="btn-save" data-save="life:main">保存</button>
+  <!-- ============ MISC ============ -->
+  <section class="section" id="misc" data-section>
+    <div class="notes-layout">
+      <div class="notes-content">
+        <div class="notes-sidebar">
+          <div class="notes-category" data-notes-tab="m1">句子</div>
+          <div class="notes-category" data-notes-tab="m2">其他</div>
+        </div>
+        <div class="notes-main">
+          <div class="notes-placeholder" data-notes-placeholder>
+            <p>选择一个子分类开始阅读。</p>
+          </div>
+          <div class="notes-tab-content" data-notes-panel="m1">
+            <div class="notes-content-view">
+              <p>1.局部最优解不一定是全局最优解<br>
+                 2.我是信佛的，但我不信他会在我困难时帮我，不信他会因为给功德箱里投了十块而给我一百块，我不信他会在我生病的时候带走我的病痛，那么我信佛什么呢？我信佛的思想，我认同佛的看法，如人生八苦，生老病死，求不得，爱别离，怨憎会，五阴炽盛，当生活不如意时，我思考过，确如其说，然后我试着用佛提出的方法来度脱自己出离苦难，心无挂碍，无挂碍故，无有恐怖，当我真的放弃了对结果的要求，接受结果无论好坏，它都是结果，我就不那么痛苦了，不尽人意，也就无奈一叹，心里却也舒畅，佛说四大皆空，四大皆空了，还能征得阿耨多罗三藐三菩提，我认同虚无主义，不如说我就是虚无主义者，学习佛的思想，却实的让我能坦然的接受虚无主义，说人生如梦，大梦到头一场空，空就空吧，哪有什么不好？这世间无常，恶人不一定有恶报，善人不一定有善报，我以前常常对此是愤慨的，但某天突然就理解了四大皆空，正因为空，我才是我，我才可以去崇善厌恶，我才会批判自己不认同的事物，夸赞自己认同的事物，正因为世界的虚无性，我才会有真实性，人活着是为了什么？答案很简单，人只是活着而已，没有意义，没有目的，只是父母顺从本能的生下了孩子而已.
+                   <br>
+                   想看出真实的一个人，不要去观察
+                  对方在轻松、和谐氛围下的言行举止，去看一些不悦、不顺、不和谐的外部因素干扰下的表现，这种表现更具有参考性，因为每个人都会装。<br>
+                 3.沉浸每一个瞬间。<br>
+                 4，靠想象去解释一些东西，本身就是最大的傲慢。<br>
+                 5.众生没有真相，只有好恶，于是你便有了价值。
+                 6.所有的决策都是有代价的。<br>
+                 7.以我观物，万物皆着我之色彩。<br>
+                 8.我的青春不值钱。<br>
+                 9.如果我学计算机，那我抵不过一个纯粹的计算机爱好者。<br>
+                 10.林无隅：不用，我没有回避的习惯，能解决马上就解决了。<br>
+                 11.解决问题的第一步是承认问题。<br>
+                 12.“加油，你知道自己不需要向任何人证明什么，但你说过，你的事你说了算，你要负责。”<br>
+                 13.我不相信永恒，我相信世界变化万千，我相信希望和苦难都在来的路上，没有什么值得人永远相信。我相信你也变化万千，你饿了相信食物，痛苦时相信爱人的怀抱，迷茫时相信家人，绝望时相信希望。我不认同用某一刻的想法诠释永恒，你会一直改变，可能一直会相信不同的东西，有时候相信钱，有时候相信关系，有时候相信权力，有时候相信权威，还有的时候相信舆论。
+                  所以不管他们说相信什么，我都没怎么放在心上。但是，朋友，坚定地相信未来吧。
+                 
+                 
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </p>
+              <p></p>
+              <p></p>
+              <p></p>
+            </div>
+          </div>
+          <div class="notes-tab-content" data-notes-panel="m2">
+            <div class="notes-content-view">
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ DIARY ============ -->
-  <section class="section" id="diary" data-section>
-    <div class="wrap">
-      <div class="page-head">
-        <span class="back" data-target="home">← 返回首页</span>
-        <h2>我的日记</h2>
-        <p>按日期与标题记录，纵向展开的生活切片。</p>
-      </div>
-      <div class="content-body">
-
-        <div class="diary-auth" id="diaryAuth">
-          <div class="diary-auth-card">
-            <h3>请输入密码查看日记</h3>
-            <div class="auth-form">
-              <input type="password" id="diaryPassword" placeholder="请输入密码" autocomplete="off">
-              <button class="btn" id="diaryAuthBtn">验证</button>
-            </div>
-            <p class="auth-error" id="diaryAuthError">密码不正确</p>
+  <!-- ============ AI ============ -->
+  <section class="section" id="ai" data-section>
+    <div class="notes-layout ai-layout">
+      <div class="notes-content notes-content-single">
+        <div class="notes-main">
+          <div class="notes-placeholder ai-placeholder">
+            <p>AI 模块的子分类尚在整理。</p>
           </div>
-        </div>
-
-        <div class="diary-content" id="diaryContent" style="display:none">
-
-          <div class="diary-form" id="diaryForm">
-            <div class="form-row split">
-              <div>
-                <label for="dDate">日期</label>
-                <input type="date" id="dDate" required>
-              </div>
-              <div>
-                <label for="dTitle">标题</label>
-                <input type="text" id="dTitle" placeholder="给这一天起个标题" required maxlength="60">
-              </div>
-            </div>
-            <div class="form-row">
-              <div style="flex:1">
-                <label for="dContent">内容</label>
-                <textarea id="dContent" placeholder="写下今天想记录的事……" required maxlength="4000"></textarea>
-              </div>
-            </div>
-            <input type="hidden" id="dId">
-            <button type="submit" class="btn" id="dSubmit">发布日记</button>
-          </div>
-
-          <div class="timeline" id="diaryList"></div>
-
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ MESSAGES ============ -->
-  <section class="section" id="messages" data-section>
-    <div class="wrap">
-      <div class="page-head">
-        <span class="back" data-target="home">← 返回首页</span>
-        <h2>留言板</h2>
-        <p>路过的话，欢迎留下一点涟漪。留言会公开展示给所有访问者。</p>
-      </div>
-      <div class="content-body">
-
-        <form class="msg-form" id="msgForm">
-          <div class="form-row split">
-            <div>
-              <label for="mName">称呼（选填）</label>
-              <input type="text" id="mName" placeholder="匿名" maxlength="24">
-            </div>
-          </div>
-          <div class="form-row">
-            <div style="flex:1">
-              <label for="mText">留言内容</label>
-              <textarea id="mText" placeholder="说点什么吧……" required maxlength="500"></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn">留下这句话</button>
-        </form>
-
-        <div class="msg-list" id="msgList">
-          <div class="loading-row">留言加载中…</div>
         </div>
       </div>
     </div>
