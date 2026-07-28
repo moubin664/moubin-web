@@ -2,6 +2,9 @@ const sections = document.querySelectorAll('[data-section]');
 const navButtons = document.querySelectorAll('nav.mainnav button');
 const mainNav = document.getElementById('mainNav');
 const navToggle = document.getElementById('navToggle');
+const darkScroll = document.getElementById('darkScroll');
+const darkGate = document.getElementById('darkGate');
+const darkArchive = document.getElementById('darkArchive');
 
 function setMainNavOpen(open){
   mainNav.classList.toggle('open', open);
@@ -15,6 +18,12 @@ function goTo(target){
   window.scrollTo({top:0, behavior:'smooth'});
   setMainNavOpen(false);
   requestAnimationFrame(updateScrollableCategoryHints);
+  if(target === 'other-side' && darkScroll){
+    requestAnimationFrame(() => {
+      darkScroll.scrollTo({ top: 0, behavior: 'auto' });
+      updateDarkGate();
+    });
+  }
 }
 
 document.querySelectorAll('[data-target]').forEach(el => {
@@ -55,6 +64,59 @@ function initScrollableCategoryHints(){
 }
 
 initScrollableCategoryHints();
+
+function preferredScrollBehavior(){
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+}
+
+function updateDarkGate(){
+  if(!darkScroll || !darkGate) return;
+  const fadeDistance = Math.max(darkScroll.clientHeight * .7, 1);
+  const progress = Math.min(darkScroll.scrollTop / fadeDistance, 1);
+  darkGate.style.setProperty('--gate-progress', progress.toFixed(3));
+}
+
+function enterDarkArchive(){
+  if(!darkArchive) return;
+  darkArchive.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
+  darkArchive.focus({ preventScroll: true });
+}
+
+document.querySelectorAll('[data-dark-enter]').forEach(trigger => {
+  trigger.addEventListener('click', enterDarkArchive);
+});
+
+if(darkScroll){
+  darkScroll.addEventListener('scroll', updateDarkGate, { passive: true });
+}
+
+function activateDarkTab(selectedTab){
+  const key = selectedTab.dataset.darkTab;
+  document.querySelectorAll('[data-dark-tab]').forEach(tab => {
+    const active = tab === selectedTab;
+    tab.classList.toggle('active', active);
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+  });
+  document.querySelectorAll('[data-dark-panel]').forEach(panel => {
+    const active = panel.dataset.darkPanel === key;
+    panel.classList.toggle('active', active);
+    panel.hidden = !active;
+  });
+}
+
+const darkTabs = Array.from(document.querySelectorAll('[data-dark-tab]'));
+darkTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => activateDarkTab(tab));
+  tab.addEventListener('keydown', event => {
+    if(event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    const direction = event.key === 'ArrowRight' ? 1 : -1;
+    const nextTab = darkTabs[(index + direction + darkTabs.length) % darkTabs.length];
+    nextTab.focus();
+    activateDarkTab(nextTab);
+  });
+});
 
 function initBrainAnimation(){
   const nodesContainer = document.getElementById('nodesContainer');
@@ -170,6 +232,98 @@ function initReadingTabs(){
 }
 
 initReadingTabs();
+
+function initMaoArticleReader(){
+  const reader = document.querySelector('[data-mao-reader]');
+  if(!reader) return;
+
+  const directory = reader.querySelector('[data-mao-directory]');
+  const directoryList = reader.querySelector('[data-mao-directory-list]');
+  const articleReader = reader.querySelector('[data-mao-article-reader]');
+  if(!directory || !directoryList || !articleReader) return;
+
+  const allArticles = Array.from(articleReader.querySelectorAll('.mao-article'));
+  allArticles.forEach(article => {
+    article.hidden = true;
+  });
+  const articles = allArticles.filter(article => {
+    const heading = article.querySelector('h3');
+    return heading && heading.textContent.trim();
+  });
+  let returnTarget = null;
+
+  directoryList.replaceChildren();
+  articles.forEach((article, index) => {
+    const articleKey = `article-${index + 1}`;
+    const articleId = `maoArticle${index + 1}`;
+    const heading = article.querySelector('h3');
+
+    article.id = articleId;
+    article.dataset.maoArticle = articleKey;
+
+    let toolbar = article.querySelector('.mao-article-toolbar');
+    if(!toolbar){
+      toolbar = document.createElement('div');
+      toolbar.className = 'mao-article-toolbar';
+      const backButton = document.createElement('button');
+      backButton.type = 'button';
+      backButton.dataset.maoBack = '';
+      backButton.textContent = '← 返回文章目录';
+      toolbar.appendChild(backButton);
+      article.prepend(toolbar);
+    }
+
+    const directoryButton = document.createElement('button');
+    directoryButton.type = 'button';
+    directoryButton.dataset.maoOpen = articleKey;
+    directoryButton.setAttribute('aria-controls', articleId);
+
+    const number = document.createElement('span');
+    number.textContent = String(index + 1).padStart(2, '0');
+    const title = document.createElement('strong');
+    title.textContent = heading.textContent.trim();
+    const action = document.createElement('span');
+    action.textContent = '进入阅读';
+    action.setAttribute('aria-hidden', 'true');
+
+    directoryButton.append(number, title, action);
+    directoryList.appendChild(directoryButton);
+  });
+
+  function openArticle(button){
+    const key = button.dataset.maoOpen;
+    const target = articles.find(article => article.dataset.maoArticle === key);
+    if(!target) return;
+
+    returnTarget = button;
+    directory.hidden = true;
+    articleReader.hidden = false;
+    articles.forEach(article => {
+      article.hidden = article !== target;
+    });
+    reader.scrollTo({ top: 0, behavior: 'auto' });
+    target.querySelector('[data-mao-back]')?.focus({ preventScroll: true });
+  }
+
+  function showDirectory(){
+    articles.forEach(article => {
+      article.hidden = true;
+    });
+    articleReader.hidden = true;
+    directory.hidden = false;
+    reader.scrollTo({ top: 0, behavior: 'auto' });
+    returnTarget?.focus({ preventScroll: true });
+  }
+
+  directoryList.querySelectorAll('[data-mao-open]').forEach(button => {
+    button.addEventListener('click', () => openArticle(button));
+  });
+  reader.querySelectorAll('[data-mao-back]').forEach(button => {
+    button.addEventListener('click', showDirectory);
+  });
+}
+
+initMaoArticleReader();
 
 function initNotesTabs(){
   document.querySelectorAll('.notes-category').forEach(cat => {
