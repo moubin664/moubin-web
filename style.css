@@ -898,6 +898,45 @@ body.other-side-open main{
   background: var(--primary-pale);
   color: var(--primary-dark);
 }
+.ai-article > h3,
+.ai-article > p,
+.ai-article-section-title{
+  width: min(100%, 860px);
+  margin-left: auto;
+  margin-right: auto;
+}
+.ai-article > p{
+  line-height: 1.9;
+}
+.ai-article-section-title{
+  margin-top: 2.7em;
+  margin-bottom: 1.2em;
+  padding-bottom: .72em;
+  border-bottom: 1px solid rgba(104, 123, 107, .32);
+  color: var(--primary-dark);
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-align: center;
+  text-indent: .16em;
+}
+.ai-context-flow{
+  display: block;
+  width: min(100%, 520px);
+  margin: 1.35em auto;
+  padding: 14px 18px;
+  border: 1px solid rgba(104, 123, 107, .24);
+  border-radius: 12px;
+  background: rgba(104, 123, 107, .075);
+  color: var(--primary-dark);
+  line-height: 1.72;
+  text-align: center;
+}
+.ai-article > h3:empty,
+.ai-article > p:empty{
+  display: none;
+}
 
 /* ---------- Swim layout ---------- */
 .swim-layout{
@@ -1216,6 +1255,44 @@ body.other-side-open main{
   }
   .reading-content-view p,
   .swim-content-view p{ font-size: .98rem; }
+  .ai-layout{
+    padding: 0 10px 12px;
+  }
+  .ai-layout .reading-content{
+    gap: 6px;
+  }
+  .ai-layout .reading-content-view.ai-article{
+    padding: 20px 16px 42px;
+    line-height: 1.9;
+    scrollbar-gutter: auto;
+  }
+  .ai-article > h3{
+    margin-bottom: 18px;
+    padding-left: 11px;
+    font-size: 1.28rem;
+    line-height: 1.45;
+  }
+  .ai-article > p{
+    font-size: 1rem;
+    line-height: 1.92;
+    letter-spacing: .01em;
+    text-align: left;
+    word-break: normal;
+  }
+  .ai-article-section-title{
+    margin-top: 2.35em;
+    margin-bottom: 1.1em;
+    padding-bottom: .65em;
+    font-size: 1.04rem;
+    line-height: 1.5;
+  }
+  .ai-context-flow{
+    margin: 1.25em auto;
+    padding: 12px 10px;
+    border-radius: 10px;
+    font-size: .94rem;
+    line-height: 1.7;
+  }
   .article-entry p{ font-size: 1rem; }
   .mao-directory{ padding: 4px 0; }
   .mao-directory-list button{
