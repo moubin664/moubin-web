@@ -4,3 +4,7 @@ node_modules/
 
 *.log
 npm-debug.log*
+
+# Codex local workspace metadata
+.agents/
+.codex/

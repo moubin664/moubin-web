@@ -8,7 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="welcome-pending">
+
+<section class="welcome-screen" id="welcomeScreen" aria-label="网站入口">
+  <div class="welcome-content">
+    <p class="welcome-message">恭喜您发现了新大陆。</p>
+    <button class="fingerprint-entry" id="enterSite" type="button" aria-label="按下指纹，进入网站">
+      <!-- Bootstrap Icons: fingerprint · MIT License -->
+      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <path d="M8.06 6.5a.5.5 0 0 1 .5.5v.776a11.5 11.5 0 0 1-.552 3.519l-1.331 4.14a.5.5 0 0 1-.952-.305l1.33-4.141a10.5 10.5 0 0 0 .504-3.213V7a.5.5 0 0 1 .5-.5Z"/>
+        <path d="M6.06 7a2 2 0 1 1 4 0 .5.5 0 1 1-1 0 1 1 0 1 0-2 0v.332q0 .613-.066 1.221A.5.5 0 0 1 6 8.447q.06-.555.06-1.115zm3.509 1a.5.5 0 0 1 .487.513 11.5 11.5 0 0 1-.587 3.339l-1.266 3.8a.5.5 0 0 1-.949-.317l1.267-3.8a10.5 10.5 0 0 0 .535-3.048A.5.5 0 0 1 9.569 8m-3.356 2.115a.5.5 0 0 1 .33.626L5.24 14.939a.5.5 0 1 1-.955-.296l1.303-4.199a.5.5 0 0 1 .625-.329"/>
+        <path d="M4.759 5.833A3.501 3.501 0 0 1 11.559 7a.5.5 0 0 1-1 0 2.5 2.5 0 0 0-4.857-.833.5.5 0 1 1-.943-.334m.3 1.67a.5.5 0 0 1 .449.546 10.7 10.7 0 0 1-.4 2.031l-1.222 4.072a.5.5 0 1 1-.958-.287L4.15 9.793a9.7 9.7 0 0 0 .363-1.842.5.5 0 0 1 .546-.449Zm6 .647a.5.5 0 0 1 .5.5c0 1.28-.213 2.552-.632 3.762l-1.09 3.145a.5.5 0 0 1-.944-.327l1.089-3.145c.382-1.105.578-2.266.578-3.435a.5.5 0 0 1 .5-.5Z"/>
+        <path d="M3.902 4.222a5 5 0 0 1 5.202-2.113.5.5 0 0 1-.208.979 4 4 0 0 0-4.163 1.69.5.5 0 0 1-.831-.556m6.72-.955a.5.5 0 0 1 .705-.052A4.99 4.99 0 0 1 13.059 7v1.5a.5.5 0 1 1-1 0V7a3.99 3.99 0 0 0-1.386-3.028.5.5 0 0 1-.051-.705M3.68 5.842a.5.5 0 0 1 .422.568q-.044.289-.044.59c0 .71-.1 1.417-.298 2.1l-1.14 3.923a.5.5 0 1 1-.96-.279L2.8 8.821A6.5 6.5 0 0 0 3.058 7q0-.375.054-.736a.5.5 0 0 1 .568-.422m8.882 3.66a.5.5 0 0 1 .456.54c-.084 1-.298 1.986-.64 2.934l-.744 2.068a.5.5 0 0 1-.941-.338l.745-2.07a10.5 10.5 0 0 0 .584-2.678.5.5 0 0 1 .54-.456"/>
+        <path d="M4.81 1.37A6.5 6.5 0 0 1 14.56 7a.5.5 0 1 1-1 0 5.5 5.5 0 0 0-8.25-4.765.5.5 0 0 1-.5-.865m-.89 1.257a.5.5 0 0 1 .04.706A5.48 5.48 0 0 0 2.56 7a.5.5 0 0 1-1 0c0-1.664.626-3.184 1.655-4.333a.5.5 0 0 1 .706-.04ZM1.915 8.02a.5.5 0 0 1 .346.616l-.779 2.767a.5.5 0 1 1-.962-.27l.778-2.767a.5.5 0 0 1 .617-.346m12.15.481a.5.5 0 0 1 .49.51c-.03 1.499-.161 3.025-.727 4.533l-.07.187a.5.5 0 0 1-.936-.351l.07-.187c.506-1.35.634-2.74.663-4.202a.5.5 0 0 1 .51-.49"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<div class="site-content" id="siteContent" aria-hidden="true" inert>
 
 <header id="siteHeader">
   <div class="brand">
@@ -17,8 +35,8 @@
   <nav class="mainnav" id="mainNav">
     <button data-target="home" class="active">首页</button>
     <button data-target="reading">读书笔记</button>
+    <button data-target="articles">文章</button>
     <button data-target="swim">游泳知识</button>
-    <button data-target="misc">杂记</button>
     <button data-target="ai">AI</button>
   </nav>
   <button class="nav-toggle" id="navToggle" type="button" aria-label="打开菜单" aria-controls="mainNav" aria-expanded="false">
@@ -72,259 +90,8 @@
   <!-- ============ DARK SIDE ============ -->
   <section class="section" id="other-side" data-section>
     <div class="other-side-page">
-      <button class="other-side-return" type="button" data-target="home">← 返回明面</button>
-      <div class="dark-scroll" id="darkScroll">
-        <section class="dark-gate" id="darkGate" aria-label="暗面入口">
-          <button class="joker-stage dark-gate-trigger" type="button" data-dark-enter aria-controls="darkArchive" aria-label="继续进入暗面">
-            <!-- Image source: Vanity Fair / Warner Bros.-Everett Collection -->
-            <figure class="joker-portrait">
-              <img src="assets/joker-heath-ledger.jpg" alt="" width="1440" height="960">
-            </figure>
-          </button>
-          <button class="dark-scroll-cue" type="button" data-dark-enter aria-label="向下进入暗面内容">
-            <span aria-hidden="true"></span>
-          </button>
-        </section>
-
-        <section class="dark-archive investment-site" id="darkArchive" tabindex="-1" aria-labelledby="darkArchiveTitle">
-          <div class="dark-archive-inner">
-            <header class="dark-intro investment-intro">
-              <span class="dark-eyebrow">INVESTMENT RESEARCH · 个人研究</span>
-              <h2 id="darkArchiveTitle">投资分析</h2>
-              <p>记录判断的依据，也记录推翻判断的证据。每一个结论，都要经得起事实、估值与风险的反复检验。</p>
-              <dl class="investment-standard" aria-label="研究档案说明">
-                <div>
-                  <dt>研究范围</dt>
-                  <dd>公司 · 行业 · 市场</dd>
-                </div>
-                <div>
-                  <dt>更新状态</dt>
-                  <dd>持续记录</dd>
-                </div>
-                <div>
-                  <dt>基本原则</dt>
-                  <dd>独立判断 · 保留反证</dd>
-                </div>
-              </dl>
-            </header>
-
-            <nav class="dark-tabs investment-tabs" role="tablist" aria-label="投资分析分类">
-              <button class="dark-tab active" id="darkTabOverview" type="button" role="tab" aria-selected="true" aria-controls="darkPanelOverview" data-dark-tab="overview">研究总览</button>
-              <button class="dark-tab" id="darkTabCompany" type="button" role="tab" aria-selected="false" aria-controls="darkPanelCompany" data-dark-tab="company" tabindex="-1">标的研究</button>
-              <button class="dark-tab" id="darkTabMarket" type="button" role="tab" aria-selected="false" aria-controls="darkPanelMarket" data-dark-tab="market" tabindex="-1">市场观察</button>
-              <button class="dark-tab" id="darkTabReview" type="button" role="tab" aria-selected="false" aria-controls="darkPanelReview" data-dark-tab="review" tabindex="-1">决策复盘</button>
-            </nav>
-
-            <div class="dark-panels investment-panels">
-              <section class="dark-panel active" id="darkPanelOverview" role="tabpanel" aria-labelledby="darkTabOverview" data-dark-panel="overview">
-                <div class="dark-panel-heading">
-                  <span>01</span>
-                  <div>
-                    <h3>研究总览</h3>
-                    <p>先定义问题，再收集事实；先寻找反证，再形成结论。</p>
-                  </div>
-                </div>
-
-                <div class="research-process" aria-label="标准研究流程">
-                  <h4>标准研究流程</h4>
-                  <ol>
-                    <li><span>01</span><strong>提出问题</strong><p>明确要判断什么，以及什么信息能够改变判断。</p></li>
-                    <li><span>02</span><strong>建立事实</strong><p>区分原始资料、市场观点与个人推断。</p></li>
-                    <li><span>03</span><strong>估值与反证</strong><p>计算预期回报，同时主动寻找最可能出错的地方。</p></li>
-                    <li><span>04</span><strong>决策与跟踪</strong><p>写下条件、期限和退出标准，之后只按证据修正。</p></li>
-                  </ol>
-                </div>
-
-                <article class="dark-entry investment-discipline">
-                  <div class="dark-entry-meta">
-                    <span class="dark-status">研究纪律</span>
-                    <span>每篇分析都要回答</span>
-                  </div>
-                  <h4>结论之前，先完成这份检查</h4>
-                  <ul class="discipline-list">
-                    <li>我是否真正理解它如何创造收入与现金流？</li>
-                    <li>当前价格隐含了怎样的增长预期？</li>
-                    <li>支持判断的核心证据和反对证据分别是什么？</li>
-                    <li>哪一个事实出现时，原有逻辑必须作废？</li>
-                    <li>这个机会与不行动相比，是否仍有足够吸引力？</li>
-                  </ul>
-                </article>
-              </section>
-
-              <section class="dark-panel" id="darkPanelCompany" role="tabpanel" aria-labelledby="darkTabCompany" data-dark-panel="company" hidden>
-                <div class="dark-panel-heading">
-                  <span>02</span>
-                  <div>
-                    <h3>标的研究</h3>
-                    <p>用统一格式记录每一个标的，让不同时间写下的判断可以被比较和检验。</p>
-                  </div>
-                </div>
-
-                <article class="dark-entry investment-memo">
-                  <div class="dark-entry-meta">
-                    <span class="dark-status">跟踪中</span>
-                    <time datetime="">日期：待填写</time>
-                    <span>行业：待填写</span>
-                    <span>标的：待填写</span>
-                  </div>
-                  <h4>标的名称｜投资备忘录</h4>
-                  <p class="memo-lead">一句话结论：在这里写下当前最重要、最容易被证伪的判断。</p>
-
-                  <div class="memo-sections">
-                    <section>
-                      <span>01</span>
-                      <div>
-                        <h5>研究问题</h5>
-                        <!-- 在下面的 p 标签内写入这次研究真正要回答的问题 -->
-                        <p class="dark-entry-placeholder">在这里写下这次研究真正要回答的问题。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>02</span>
-                      <div>
-                        <h5>商业模式与竞争优势</h5>
-                        <!-- 在下面的 p 标签内写入公司如何赚钱、优势来自哪里 -->
-                        <p class="dark-entry-placeholder">在这里写下公司如何赚钱、优势来自哪里。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>03</span>
-                      <div>
-                        <h5>关键事实与数据</h5>
-                        <!-- 在下面的 p 标签内写入来源明确的事实和关键数据 -->
-                        <p class="dark-entry-placeholder">在这里写下来源明确的事实和关键数据。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>04</span>
-                      <div>
-                        <h5>估值与预期回报</h5>
-                        <!-- 在下面的 p 标签内写入估值方法、假设和安全边际 -->
-                        <p class="dark-entry-placeholder">在这里写下估值方法、核心假设和安全边际。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>05</span>
-                      <div>
-                        <h5>风险与反证</h5>
-                        <!-- 在下面的 p 标签内写入可能推翻判断的事实 -->
-                        <p class="dark-entry-placeholder">在这里写下可能推翻判断的事实。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>06</span>
-                      <div>
-                        <h5>行动与退出条件</h5>
-                        <!-- 在下面的 p 标签内写入观察、买入、加仓或退出的条件 -->
-                        <p class="dark-entry-placeholder">在这里写下观察、买入、加仓或退出的条件。</p>
-                      </div>
-                    </section>
-                  </div>
-                </article>
-              </section>
-
-              <section class="dark-panel" id="darkPanelMarket" role="tabpanel" aria-labelledby="darkTabMarket" data-dark-panel="market" hidden>
-                <div class="dark-panel-heading">
-                  <span>03</span>
-                  <div>
-                    <h3>市场观察</h3>
-                    <p>把看到的事实、感受到的情绪和得出的判断分开记录。</p>
-                  </div>
-                </div>
-
-                <article class="dark-entry investment-observation">
-                  <div class="dark-entry-meta">
-                    <span class="dark-status">观察记录</span>
-                    <time datetime="">日期：待填写</time>
-                    <span>范围：待填写</span>
-                  </div>
-                  <h4>本期市场观察</h4>
-                  <div class="observation-sections">
-                    <section>
-                      <h5>发生了什么</h5>
-                      <!-- 在下面的 p 标签内只写可以核实的市场事实 -->
-                      <p class="dark-entry-placeholder">在这里记录可以核实的市场事实。</p>
-                    </section>
-                    <section>
-                      <h5>市场在交易什么</h5>
-                      <!-- 在下面的 p 标签内写入价格背后的主流预期 -->
-                      <p class="dark-entry-placeholder">在这里判断价格背后的主流预期。</p>
-                    </section>
-                    <section>
-                      <h5>我的解释</h5>
-                      <!-- 在下面的 p 标签内写入个人解释，并注明不确定性 -->
-                      <p class="dark-entry-placeholder">在这里写下个人解释，并注明不确定性。</p>
-                    </section>
-                    <section>
-                      <h5>需要继续跟踪</h5>
-                      <!-- 在下面的 p 标签内写入下一步需要验证的信号 -->
-                      <p class="dark-entry-placeholder">在这里写下下一步需要验证的信号。</p>
-                    </section>
-                  </div>
-                </article>
-              </section>
-
-              <section class="dark-panel" id="darkPanelReview" role="tabpanel" aria-labelledby="darkTabReview" data-dark-panel="review" hidden>
-                <div class="dark-panel-heading">
-                  <span>04</span>
-                  <div>
-                    <h3>决策复盘</h3>
-                    <p>不以盈亏代替判断质量，回到当时的信息环境中检查决策过程。</p>
-                  </div>
-                </div>
-
-                <article class="dark-entry investment-review">
-                  <div class="dark-entry-meta">
-                    <span class="dark-status">待复盘</span>
-                    <time datetime="">决策日期：待填写</time>
-                    <span>复盘日期：待填写</span>
-                  </div>
-                  <h4>决策名称｜复盘记录</h4>
-                  <div class="memo-sections">
-                    <section>
-                      <span>01</span>
-                      <div>
-                        <h5>当时的判断</h5>
-                        <!-- 在下面的 p 标签内写入当时掌握的信息和原始逻辑 -->
-                        <p class="dark-entry-placeholder">在这里还原当时掌握的信息和原始逻辑。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>02</span>
-                      <div>
-                        <h5>后来发生的事实</h5>
-                        <!-- 在下面的 p 标签内写入结果，不先评价对错 -->
-                        <p class="dark-entry-placeholder">在这里记录后来发生的事实，不先评价对错。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>03</span>
-                      <div>
-                        <h5>过程评价</h5>
-                        <!-- 在下面的 p 标签内区分能力、运气和错误 -->
-                        <p class="dark-entry-placeholder">在这里区分能力、运气和错误。</p>
-                      </div>
-                    </section>
-                    <section>
-                      <span>04</span>
-                      <div>
-                        <h5>沉淀为规则</h5>
-                        <!-- 在下面的 p 标签内写入以后可以重复执行的规则 -->
-                        <p class="dark-entry-placeholder">在这里写下一条以后可以重复执行的规则。</p>
-                      </div>
-                    </section>
-                  </div>
-                </article>
-              </section>
-            </div>
-
-            <footer class="investment-disclaimer">
-              <span>研究边界</span>
-              <p>本页仅记录个人研究与思考，不构成任何投资建议。</p>
-            </footer>
-          </div>
-        </section>
-      </div>
+      <button class="other-side-return" type="button" data-target="home" aria-label="返回明面">←</button>
+      <p class="other-side-empty-text">无内容</p>
     </div>
   </section>
 
@@ -349,7 +116,7 @@
               <circle cx="90" cy="35" r="4" fill="currentColor" opacity="0.5"/>
               <circle cx="110" cy="35" r="4" fill="currentColor" opacity="0.5"/>
             </svg>
-            <p>选择一个子分类开始阅读</p>
+            <p>翻开一页，慢慢读。</p>
           </div>
           <div class="reading-tab-content" data-reading-panel="r1">
             <div class="reading-content-view">
@@ -1320,6 +1087,82 @@
     </div>
   </section>
 
+  <!-- ============ ARTICLES ============ -->
+  <section class="section" id="articles" data-section>
+    <div class="notes-layout articles-layout">
+      <div class="notes-content">
+        <div class="notes-sidebar" aria-label="文章子分类">
+          <button class="notes-category" type="button" data-notes-tab="a1" aria-pressed="false">1</button>
+          <button class="notes-category" type="button" data-notes-tab="a2" aria-pressed="false">2</button>
+          <button class="notes-category" type="button" data-notes-tab="a3" aria-pressed="false">3</button>
+          <button class="notes-category" type="button" data-notes-tab="a4" aria-pressed="false">4</button>
+          <button class="notes-category" type="button" data-notes-tab="a5" aria-pressed="false">5</button>
+        </div>
+
+        <div class="notes-main">
+          <div class="notes-placeholder" data-notes-placeholder>
+            <p>随便挑一处看看。</p>
+          </div>
+
+          <div class="notes-tab-content" data-notes-panel="a1">
+            <div class="notes-content-view article-content-view">
+              <h2 class="article-category-title">1</h2>
+              <!-- 在 h3 标签中填写文章标题，在 p 标签中填写正文；新增文章时复制整个 article 标签。 -->
+              <article class="article-entry">
+                <h3></h3>
+                <p></p>
+              </article>
+            </div>
+          </div>
+
+          <div class="notes-tab-content" data-notes-panel="a2">
+            <div class="notes-content-view article-content-view">
+              <h2 class="article-category-title">2</h2>
+              <!-- 在 h3 标签中填写文章标题，在 p 标签中填写正文；新增文章时复制整个 article 标签。 -->
+              <article class="article-entry">
+                <h3></h3>
+                <p></p>
+              </article>
+            </div>
+          </div>
+
+          <div class="notes-tab-content" data-notes-panel="a3">
+            <div class="notes-content-view article-content-view">
+              <h2 class="article-category-title">3</h2>
+              <!-- 在 h3 标签中填写文章标题，在 p 标签中填写正文；新增文章时复制整个 article 标签。 -->
+              <article class="article-entry">
+                <h3></h3>
+                <p></p>
+              </article>
+            </div>
+          </div>
+
+          <div class="notes-tab-content" data-notes-panel="a4">
+            <div class="notes-content-view article-content-view">
+              <h2 class="article-category-title">4</h2>
+              <!-- 在 h3 标签中填写文章标题，在 p 标签中填写正文；新增文章时复制整个 article 标签。 -->
+              <article class="article-entry">
+                <h3></h3>
+                <p></p>
+              </article>
+            </div>
+          </div>
+
+          <div class="notes-tab-content" data-notes-panel="a5">
+            <div class="notes-content-view article-content-view">
+              <h2 class="article-category-title">5</h2>
+              <!-- 在 h3 标签中填写文章标题，在 p 标签中填写正文；新增文章时复制整个 article 标签。 -->
+              <article class="article-entry">
+                <h3></h3>
+                <p></p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SWIM ============ -->
   <section class="section" id="swim" data-section>
     <div class="swim-layout">
@@ -1508,74 +1351,191 @@
     </div>
   </section>
 
-  <!-- ============ MISC ============ -->
-  <section class="section" id="misc" data-section>
-    <div class="notes-layout">
-      <div class="notes-content">
-        <div class="notes-sidebar">
-          <button class="notes-category" type="button" data-notes-tab="m1" aria-pressed="false">句子</button>
-          <button class="notes-category" type="button" data-notes-tab="m2" aria-pressed="false">其他</button>
-        </div>
-        <div class="notes-main">
-          <div class="notes-placeholder" data-notes-placeholder>
-            <p>选择一个子分类开始阅读。</p>
-          </div>
-          <div class="notes-tab-content" data-notes-panel="m1">
-            <div class="notes-content-view">
-              <p>1.局部最优解不一定是全局最优解<br>
-                 2.我是信佛的，但我不信他会在我困难时帮我，不信他会因为给功德箱里投了十块而给我一百块，我不信他会在我生病的时候带走我的病痛，那么我信佛什么呢？我信佛的思想，我认同佛的看法，如人生八苦，生老病死，求不得，爱别离，怨憎会，五阴炽盛，当生活不如意时，我思考过，确如其说，然后我试着用佛提出的方法来度脱自己出离苦难，心无挂碍，无挂碍故，无有恐怖，当我真的放弃了对结果的要求，接受结果无论好坏，它都是结果，我就不那么痛苦了，不尽人意，也就无奈一叹，心里却也舒畅，佛说四大皆空，四大皆空了，还能征得阿耨多罗三藐三菩提，我认同虚无主义，不如说我就是虚无主义者，学习佛的思想，却实的让我能坦然的接受虚无主义，说人生如梦，大梦到头一场空，空就空吧，哪有什么不好？这世间无常，恶人不一定有恶报，善人不一定有善报，我以前常常对此是愤慨的，但某天突然就理解了四大皆空，正因为空，我才是我，我才可以去崇善厌恶，我才会批判自己不认同的事物，夸赞自己认同的事物，正因为世界的虚无性，我才会有真实性，人活着是为了什么？答案很简单，人只是活着而已，没有意义，没有目的，只是父母顺从本能的生下了孩子而已.
-                   <br>
-                   想看出真实的一个人，不要去观察
-                  对方在轻松、和谐氛围下的言行举止，去看一些不悦、不顺、不和谐的外部因素干扰下的表现，这种表现更具有参考性，因为每个人都会装。<br>
-                 3.沉浸每一个瞬间。<br>
-                 4，靠想象去解释一些东西，本身就是最大的傲慢。<br>
-                 5.众生没有真相，只有好恶，于是你便有了价值。
-                 6.所有的决策都是有代价的。<br>
-                 7.以我观物，万物皆着我之色彩。<br>
-                 8.我的青春不值钱。<br>
-                 9.如果我学计算机，那我抵不过一个纯粹的计算机爱好者。<br>
-                 10.林无隅：不用，我没有回避的习惯，能解决马上就解决了。<br>
-                 11.解决问题的第一步是承认问题。<br>
-                 12.“加油，你知道自己不需要向任何人证明什么，但你说过，你的事你说了算，你要负责。”<br>
-                 13.我不相信永恒，我相信世界变化万千，我相信希望和苦难都在来的路上，没有什么值得人永远相信。我相信你也变化万千，你饿了相信食物，痛苦时相信爱人的怀抱，迷茫时相信家人，绝望时相信希望。我不认同用某一刻的想法诠释永恒，你会一直改变，可能一直会相信不同的东西，有时候相信钱，有时候相信关系，有时候相信权力，有时候相信权威，还有的时候相信舆论。
-                  所以不管他们说相信什么，我都没怎么放在心上。但是，朋友，坚定地相信未来吧。
-                 
-                 
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              </p>
-              <p></p>
-              <p></p>
-              <p></p>
-            </div>
-          </div>
-          <div class="notes-tab-content" data-notes-panel="m2">
-            <div class="notes-content-view">
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ AI ============ -->
   <section class="section" id="ai" data-section>
-    <div class="notes-layout ai-layout">
-      <div class="notes-content notes-content-single">
-        <div class="notes-main">
-          <div class="notes-placeholder ai-placeholder">
-            <p>AI 模块的子分类尚在整理。</p>
+    <div class="reading-layout ai-layout">
+      <div class="reading-content">
+        <div class="reading-sidebar" aria-label="AI 子分类">
+          <button class="reading-category" type="button" data-ai-tab="ai-memory" aria-pressed="false">记忆</button>
+          <button class="reading-category" type="button" data-ai-tab="ai-1" aria-pressed="false">1</button>
+          <button class="reading-category" type="button" data-ai-tab="ai-2" aria-pressed="false">2</button>
+          <button class="reading-category" type="button" data-ai-tab="ai-3" aria-pressed="false">3</button>
+        </div>
+        <div class="reading-main">
+          <div class="reading-placeholder" data-ai-placeholder>
+            <svg class="reading-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="30" y="40" width="140" height="100" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="30" y1="65" x2="170" y2="65" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+              <line x1="30" y1="85" x2="155" y2="85" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+              <line x1="30" y1="105" x2="140" y2="105" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+              <line x1="30" y1="125" x2="160" y2="125" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+              <rect x="70" y="25" width="60" height="20" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="90" cy="35" r="4" fill="currentColor" opacity="0.5"/>
+              <circle cx="110" cy="35" r="4" fill="currentColor" opacity="0.5"/>
+            </svg>
+            <p>从一个话题开始。</p>
+          </div>
+
+          <div class="reading-tab-content" data-ai-panel="ai-memory">
+            <div class="reading-content-view">
+              <!-- 在下面成对的 h3、p 标签中填写“记忆”分类的标题和正文。 -->
+              <h3>AI失忆</h3>
+              <p>
+                
+
+AI不像人一样拥有完整、无限的长期记忆。在一个很长的对话里，它存在一个问题：上下文容量有限。于是表现出一种“失忆”的情况，比如，谈话中一定会忘掉之前的某处细节；回答会变得逐渐笼统不着要点；甚至会误解你曾经表达过的想法等等。事实上，当今大多数LLM都存在着上述情况。我以chatgpt为例，写一些东西，去解释这种现象的发生原因，并给出解决办法。<br><br>
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;基本原理 <br><br><br><br>
+在当前对话的聊天过程中，chatgpt会基于： <br>
+当前对话内容；<br>
+系统提供的上下文；<br>
+已保存的相关信息（如果有）<br>
+这三个来源来思考并给出自己的回答。<br><br><br>
+逐个来了解：<br>
+1.当前对话内容（Current Conversation Context）
+这是最直接的一层。简单理解，就是现在打开的聊天窗口里，已经说过的话。<br><br>
+
+优点：<br>
+信息最丰富。<br>
+因为里面有：<br>
+原始问题；<br>
+推理过程；<br>
+你的修正；<br>
+你的偏好。<br><br>
+缺点：<br>
+它不是无限容量。<br>
+聊天越来越长时，不可能永远把所有历史细节都放在当前工作区域。所以，几十轮、几百轮后，早期细节很可能不再直接可用。<br><br>
+2.系统提供的上下文（System-provided Context）<br>
+1.它不是聊天记录，而是：系统为了让chatgpt更好地回答，而额外提供给它的背景信息和规则。<br>
+它可能包括几类。<br>
+行为规则<br>
+比如告诉它：<br>
+如何回答；<br>
+哪些事情不能做；<br>
+使用什么工具；<br>
+如何处理隐私。<br>
+它们决定，chatgpt应该怎么工作。<br>
+2.关于用户的部分背景信息（如果系统提供）<br>
+例如有些情况下，系统可能提供：<br>
+用户长期关注什么；<br>
+用户的偏好；<br>
+之前的重要项目。<br>
+这类信息类似，“用户画像”。例如，用户长期研究毛选，希望讨论文章背景。那么chatgpt在回答我要读《实践论》时，会知道你希望：<br>
+给背景；<br>
+给位置；<br>
+联系历史。 <br>
+3.当前环境信息<br>
+比如：<br>
+语言；<br>
+时间；<br>
+工具状态。<br>
+这些帮助chatgpt去适配相关的回答。<br><br>
+3.已保存的相关信息（Memory）<br>
+这个是最容易混淆的。<br>
+它会保存一些未来长期有价值的信息。比如你告诉系统：以后讨论毛选，请按照背景—位置—思想意义分析。如果这个被保存，那么以后在新的聊天里，也可能知道这个偏好。但是它不会保存具体讨论过程，除非它被整理成长期信息并保存。<br><br>
+这三者的区别，用一个比喻来讲：<br>
+假设你在写一本书。当前对话内容像：你现在桌面上的草稿。里面有大量细节。系统提供上下文像：编辑给你的写作要求和作者资料。告诉你应该怎么配合。已保存记忆像： 书籍里的作者档案。记录长期稳定的信息。<br>
+所以：回答 = 当前聊天草稿 + 系统提供的背景资料 + 长期保存的信息<br><br>
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;遇到的问题<br><br><br>
+对话不是无限长的。 当文本越来越多，超过一定范围后，早期内容可能不再直接进入我的“工作上下文”。 这时可能出现： 忘记之前提出的某个概念； 不知道你为什么这么定义某个词； 回答变得更通用； 没有沿着之前的思路继续。 从用户体验角度来说，就是“失忆”这种情况。为了理解问题，我们先要了解一点简单的概念。<br>
+上下文窗口（Context Window）：<br>
+这是总容量。可以理解成，模型一次能够处理的信息总量上限。<br>
+这个容量通常以 token （中文：词元）为单位计算。<br>
+上下文窗口容量<br>
+    ↓<br>
+能放入多少token<br>
+    ↓<br>
+决定能容纳多少文字、图片、文件、历史消息<br><br>
+所以消息数量，消息长度，本质上都是：它们消耗了多少token。<br>
+情况A：<br>
+100条消息：<br>
+“你好” “继续” “明白”<br>
+可能只占几百token。<br>
+情况B：<br>
+10条消息：<br>
+每条几千字的深度讨论。<br>
+可能占几十万token。<br><br>
+所以不是消息越多越容易忘，而是消息占用的token越多，越接近上下文窗口上限。<br>
+那么在上下文窗口有上限的前提下，如果要使其工作仍能进行，即让模型还能继续聊天，则必须对早期的对话进行压缩。它可能保留：<br>
+主题；<br>
+大方向。<br>
+但不一定保留：<br>
+你的特殊表述；<br>
+推理过程；<br>
+为什么形成这个观点。<br><br>
+这其实，是做了自动总结，把具体内容化为抽象结构来保留。所以，在经过数次的系统压缩后，他的重点与你的期待或许早已产生了偏差。<br><br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;解决办法<br><br><br>
+主动压缩：“请把以下内容作为这个长期项目的背景资料，之后讨论时以此为基础。”  用人为的信息压缩去主动提炼，丢掉细节，保留你认为重要的思想结构，这样质量更高。因为你知道：什么东西对未来讨论更重要。<br><br>
+举例：<br>
+系统压缩可能变成：<br>
+ 用户正在讨论青年发展。<br>
+但是你的压缩可以变成：<br>
+ 用户认为青年发展的根本矛盾不是理想自我和现实自我，而是一个具有多种可能性的青年如何通过实践，将可能性转化为现实人格。<br>
+这两个信息量完全不同。<br><br>
+请注意：你不要讲： “记住这些。” 而应该说： “请把以下内容作为这个长期项目的背景资料，之后讨论时以此为基础。”因为“记住”容易让人理解成永久记忆，而实际上更准确的是： 提供一个可重新加载的上下文。<br><br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;总结<br><br><br>
+我对AI的了解尚且浅显，笔下的内容就更加粗浅了。但还是希望有一些能看的东西在里面，不负每一个阅读者的时间。
+
+
+
+
+
+
+
+
+
+
+              </p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+            </div>
+          </div>
+
+          <div class="reading-tab-content" data-ai-panel="ai-1">
+            <div class="reading-content-view">
+              <!-- 在下面成对的 h3、p 标签中填写子分类“1”的标题和正文。 -->
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+            </div>
+          </div>
+
+          <div class="reading-tab-content" data-ai-panel="ai-2">
+            <div class="reading-content-view">
+              <!-- 在下面成对的 h3、p 标签中填写子分类“2”的标题和正文。 -->
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+            </div>
+          </div>
+
+          <div class="reading-tab-content" data-ai-panel="ai-3">
+            <div class="reading-content-view">
+              <!-- 在下面成对的 h3、p 标签中填写子分类“3”的标题和正文。 -->
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+              <h3></h3>
+              <p></p>
+            </div>
           </div>
         </div>
       </div>
@@ -1584,7 +1544,7 @@
 
 </main>
 
-<footer></footer>
+</div>
 
 <script src="script.js"></script>
 
